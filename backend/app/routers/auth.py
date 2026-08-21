@@ -15,7 +15,6 @@ from app.database import get_db
 from app.services.auth_service import login_user, register_user
 
 router = APIRouter(
-    prefix="/auth",
     tags=["Authentication"]
 )
 

@@ -34,7 +34,6 @@ from app.schemas import (
 from fastapi import HTTPException
 
 router = APIRouter(
-    prefix="/resume",
     tags=["Resume"]
 )
 

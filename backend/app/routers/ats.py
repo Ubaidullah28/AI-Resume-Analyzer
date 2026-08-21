@@ -33,7 +33,6 @@ from app.services.ai_service import (
 
 
 router = APIRouter(
-    prefix="/ats",
     tags=["ATS Analysis"]
 )
 

@@ -4,7 +4,6 @@ from app.schemas import UserResponse
 from app.services.user_service import get_current_user
 
 router = APIRouter(
-    prefix="/users",
     tags=["Users"]
 )
 
