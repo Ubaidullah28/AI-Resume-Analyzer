@@ -11,6 +11,15 @@ import {
 import ProtectedRoute
     from "./components/ProtectedRoute";
 
+import Analyze
+    from "./pages/Analyze";
+
+import Results
+    from "./pages/Results";
+
+import History
+    from "./pages/History";
+
 import Login
     from "./pages/Login";
 
@@ -31,7 +40,10 @@ function App() {
 
                 <Routes>
 
-                    {/* Public */}
+
+                    {/* =====================
+                        PUBLIC ROUTES
+                    ====================== */}
 
                     <Route
                         path="/login"
@@ -48,7 +60,9 @@ function App() {
                     />
 
 
-                    {/* Protected */}
+                    {/* =====================
+                        PROTECTED ROUTES
+                    ====================== */}
 
                     <Route
                         element={
@@ -63,10 +77,36 @@ function App() {
                             }
                         />
 
+
+                        <Route
+                            path="/analyze"
+                            element={
+                                <Analyze />
+                            }
+                        />
+
+
+
+
+                        <Route
+                            path="/results"
+                            element={
+                              <Results />
+                            }
+                        />
+                        <Route
+                            path="/history"
+                            element={
+                              <History />
+                            }
+                        />
+
                     </Route>
 
 
-                    {/* Default */}
+                    {/* =====================
+                        DEFAULT
+                    ====================== */}
 
                     <Route
                         path="*"
