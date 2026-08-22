@@ -33,11 +33,54 @@ export default function Analyze() {
         const selectedFile =
             event.target.files[0];
 
+
         if (!selectedFile) {
             return;
         }
 
-        setFile(selectedFile);
+
+        // PDF validation
+
+        if (
+            selectedFile.type !==
+            "application/pdf"
+        ) {
+
+            setFile(null);
+
+            setError(
+                "Only PDF resumes are allowed."
+            );
+
+            return;
+        }
+
+
+        // Size validation
+        // 5 MB maximum
+
+        const maxSize =
+            5 * 1024 * 1024;
+
+
+        if (
+            selectedFile.size >
+            maxSize
+        ) {
+
+            setFile(null);
+
+            setError(
+                "Resume must be smaller than 5 MB."
+            );
+
+            return;
+        }
+
+
+        setFile(
+            selectedFile
+        );
 
         setError("");
     }
@@ -258,13 +301,23 @@ export default function Analyze() {
 
                             {file && (
 
-                                <p className="file-name">
-                                    Selected:
-                                    {" "}
-                                    {file.name}
-                                </p>
+                        <div className="file-name">
 
-                            )}
+                            ✓ Selected:
+                            {" "}
+                            {file.name}
+
+                            <br />
+
+                            <small>
+                                {(file.size / 1024 / 1024).toFixed(2)}
+                                {" "}
+                                MB
+                            </small>
+
+                        </div>
+
+                    )}
 
                         </div>
 
@@ -316,12 +369,10 @@ export default function Analyze() {
                         className="analyze-btn"
                         disabled={loading}
                     >
-
                         {loading
-                            ? "Analyzing..."
+                            ? "Uploading & analyzing..."
                             : "Analyze Resume →"
                         }
-
                     </button>
 
                 </form>

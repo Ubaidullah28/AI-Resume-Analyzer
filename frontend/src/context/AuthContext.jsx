@@ -6,9 +6,9 @@ import {
 } from "react";
 
 import {
-    getCurrentUser,
+    registerUser,
     loginUser,
-    registerUser
+    getCurrentUser
 } from "../services/api";
 
 
@@ -27,47 +27,110 @@ export function AuthProvider({
         useState(true);
 
 
-    // -------------------------
-    // Check existing login
-    // -------------------------
+    // --------------------------------
+    // Load existing login on startup
+    // --------------------------------
 
     useEffect(() => {
 
-        const token =
-            localStorage.getItem(
-                "access_token"
-            );
+        async function loadUser() {
 
-        if (!token) {
-            setLoading(false);
-            return;
-        }
+            const token =
+                localStorage.getItem(
+                    "access_token"
+                );
 
 
-        getCurrentUser()
+            if (!token) {
 
-            .then((data) => {
-                setUser(data);
-            })
+                setLoading(false);
 
-            .catch(() => {
+                return;
+            }
+
+
+            try {
+
+                const currentUser =
+                    await getCurrentUser();
+
+                setUser(
+                    currentUser
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to load user:",
+                    error
+                );
+
                 localStorage.removeItem(
                     "access_token"
                 );
 
                 setUser(null);
-            })
 
-            .finally(() => {
+
+            } finally {
+
                 setLoading(false);
-            });
+            }
+        }
+
+
+        loadUser();
 
     }, []);
 
 
-    // -------------------------
-    // Login
-    // -------------------------
+    // --------------------------------
+    // Normal Register
+    // --------------------------------
+
+    async function register(
+        name,
+        email,
+        password
+    ) {
+
+        const data =
+            await registerUser(
+                name,
+                email,
+                password
+            );
+
+
+        // Backend registration response
+        // should contain access_token
+
+        if (data?.access_token) {
+
+            localStorage.setItem(
+                "access_token",
+                data.access_token
+            );
+
+
+            const currentUser =
+                await getCurrentUser();
+
+
+            setUser(
+                currentUser
+            );
+        }
+
+
+        return data;
+    }
+
+
+    // --------------------------------
+    // Normal Login
+    // --------------------------------
 
     async function login(
         email,
@@ -80,46 +143,75 @@ export function AuthProvider({
                 password
             );
 
+
+        if (!data?.access_token) {
+
+            throw new Error(
+                "Login failed: no access token received."
+            );
+        }
+
+
         localStorage.setItem(
             "access_token",
             data.access_token
         );
 
+
         const currentUser =
             await getCurrentUser();
 
-        setUser(currentUser);
+
+        setUser(
+            currentUser
+        );
+
+
+        return data;
     }
 
 
-    // -------------------------
-    // Register
-    // -------------------------
+    // --------------------------------
+    // Google Login
+    // --------------------------------
 
-    async function register(
-        name,
-        email,
-        password
+    async function loginWithGoogleToken(
+        accessToken
     ) {
 
-        await registerUser(
-            name,
-            email,
-            password
+        if (!accessToken) {
+
+            throw new Error(
+                "Google login did not return an access token."
+            );
+        }
+
+
+        // Save JWT
+        localStorage.setItem(
+            "access_token",
+            accessToken
         );
 
-        // Registration ke baad
-        // automatically login
-        await login(
-            email,
-            password
+
+        // Fetch our own application's user
+        const currentUser =
+            await getCurrentUser();
+
+
+        // Update React authentication state
+        setUser(
+            currentUser
         );
+
+
+        return currentUser;
     }
 
 
-    // -------------------------
+    // --------------------------------
     // Logout
-    // -------------------------
+    // --------------------------------
 
     function logout() {
 
@@ -132,16 +224,20 @@ export function AuthProvider({
 
 
     return (
+
         <AuthContext.Provider
             value={{
                 user,
                 loading,
-                login,
                 register,
+                login,
+                loginWithGoogleToken,
                 logout
             }}
         >
+
             {children}
+
         </AuthContext.Provider>
     );
 }

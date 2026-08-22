@@ -11,6 +11,9 @@ import {
     useAuth
 } from "../context/AuthContext";
 
+import GoogleLoginButton
+    from "../components/GoogleLoginButton";
+
 
 export default function Register() {
 
@@ -43,26 +46,71 @@ export default function Register() {
         e.preventDefault();
 
         setError("");
-        setLoading(true);
+
+
+        // Basic validation
+
+        if (!name.trim()) {
+
+            setError(
+                "Please enter your full name."
+            );
+
+            return;
+        }
+
+
+        if (!email.trim()) {
+
+            setError(
+                "Please enter your email."
+            );
+
+            return;
+        }
+
+
+        if (password.length < 8) {
+
+            setError(
+                "Password must be at least 8 characters."
+            );
+
+            return;
+        }
 
 
         try {
 
-            await register(
+            setLoading(true);
+
+
+           await register(
                 name,
                 email,
                 password
             );
 
             navigate(
-                "/dashboard"
+                "/dashboard",
+                {
+                    state: {
+                        message:
+                            "Account created successfully!"
+                    }
+                }
             );
+
 
         } catch (err) {
 
+            console.error(err);
+
             setError(
-                err.message
+                err.message ||
+                "Registration failed. Please try again."
             );
+
 
         } finally {
 
@@ -73,102 +121,155 @@ export default function Register() {
 
 
     return (
+
         <div className="auth-page">
 
             <div className="auth-card">
 
-                <div className="logo">
+                {/* Logo */}
+
+                <div className="auth-logo">
                     ResumeAI
                 </div>
+
+
+                {/* Heading */}
 
                 <h1>
                     Create your account
                 </h1>
 
-                <p className="subtitle">
+
+                <p className="auth-subtitle">
                     Start improving your
-                    resume today
+                    resume today.
                 </p>
 
 
+                {/* Error */}
+
                 {error && (
-                    <div className="error">
+
+                    <div className="auth-error">
                         {error}
                     </div>
+
                 )}
 
 
+                {/* Form */}
+
                 <form
+                    className="auth-form"
                     onSubmit={
                         handleSubmit
                     }
                 >
 
-                    <label>
-                        Full Name
-                    </label>
+                    {/* Full Name */}
 
-                    <input
-                        type="text"
-                        placeholder="Your name"
-                        value={name}
-                        onChange={(e) =>
-                            setName(
-                                e.target.value
-                            )
-                        }
-                        required
-                    />
+                    <div className="form-group">
 
+                        <label htmlFor="name">
+                            Full Name
+                        </label>
 
-                    <label>
-                        Email
-                    </label>
+                        <input
+                            id="name"
+                            type="text"
+                            placeholder="Your name"
+                            value={name}
+                            onChange={(e) =>
+                                setName(
+                                    e.target.value
+                                )
+                            }
+                            autoComplete="name"
+                            required
+                        />
 
-                    <input
-                        type="email"
-                        placeholder="you@example.com"
-                        value={email}
-                        onChange={(e) =>
-                            setEmail(
-                                e.target.value
-                            )
-                        }
-                        required
-                    />
+                    </div>
 
 
-                    <label>
-                        Password
-                    </label>
+                    {/* Email */}
 
-                    <input
-                        type="password"
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) =>
-                            setPassword(
-                                e.target.value
-                            )
-                        }
-                        minLength={8}
-                        required
-                    />
+                    <div className="form-group">
 
+                        <label htmlFor="email">
+                            Email
+                        </label>
+
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="you@example.com"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(
+                                    e.target.value
+                                )
+                            }
+                            autoComplete="email"
+                            required
+                        />
+
+                    </div>
+
+
+                    {/* Password */}
+
+                    <div className="form-group">
+
+                        <label htmlFor="password">
+                            Password
+                        </label>
+
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(
+                                    e.target.value
+                                )
+                            }
+                            minLength={8}
+                            autoComplete="new-password"
+                            required
+                        />
+
+                    </div>
+
+
+                    {/* Submit */}
 
                     <button
                         type="submit"
+                        className="auth-btn"
                         disabled={loading}
                     >
+
                         {loading
                             ? "Creating..."
-                            : "Create account"}
+                            : "Create account"
+                        }
+
                     </button>
 
                 </form>
 
+                <div className="auth-divider">
+                    <span>OR</span>
+                </div>
 
-                <p className="auth-footer">
+                <GoogleLoginButton />
+
+
+                {/* Login link */}
+
+                <div className="auth-footer">
+
                     Already have an account?
 
                     {" "}
@@ -176,10 +277,12 @@ export default function Register() {
                     <Link to="/login">
                         Sign in
                     </Link>
-                </p>
+
+                </div>
 
             </div>
 
         </div>
+
     );
 }

@@ -151,33 +151,31 @@ export default function Results() {
 
     if (loading) {
 
-        return (
+    return (
 
-            <div className="results-page">
+        <div className="results-page">
 
-                <main className="results-container">
+            <main className="results-container">
 
-                    <div className="loading-card">
+                <div className="loading-card">
 
-                        <h2>
-                            Analyzing your resume...
-                        </h2>
+                    <h2>
+                        Preparing your results...
+                    </h2>
 
-                        <p>
-                            AI is reviewing your
-                            resume against the
-                            job description.
-                        </p>
+                    <p>
+                        We're loading your ATS
+                        score and AI feedback.
+                    </p>
 
-                    </div>
+                </div>
 
-                </main>
+            </main>
 
-            </div>
+        </div>
 
-        );
-    }
-
+    );
+}
 
     // =====================================
     // Error

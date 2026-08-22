@@ -195,3 +195,22 @@ export async function getAIFeedback(
 
 
 
+// ----------------------
+// Google Authentication
+// ----------------------
+
+export async function googleLogin(
+    credential
+) {
+
+    return request(
+        "/auth/google",
+        {
+            method: "POST",
+
+            body: JSON.stringify(
+                credential
+            )
+        }
+    );
+}

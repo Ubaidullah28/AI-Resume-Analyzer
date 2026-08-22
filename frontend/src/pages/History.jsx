@@ -144,7 +144,7 @@ export default function History() {
 
         const confirmed =
             window.confirm(
-                "Are you sure you want to delete this resume?"
+                "Delete this resume and its analysis history?"
             );
 
 

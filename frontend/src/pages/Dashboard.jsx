@@ -3,7 +3,8 @@ import {
 } from "../context/AuthContext";
 
 import {
-    useNavigate
+    useNavigate,
+    useLocation
 } from "react-router-dom";
 
 
@@ -16,6 +17,8 @@ export default function Dashboard() {
 
     const navigate =
         useNavigate();
+    const location =
+        useLocation();
 
 
     function handleLogout() {
@@ -59,6 +62,17 @@ export default function Dashboard() {
 
 
             <main className="dashboard-content">
+                    {
+                        location.state?.message && (
+
+                            <div className="success-message">
+
+                                {location.state.message}
+
+                            </div>
+
+                        )
+                    }
 
                 <div className="hero">
 
@@ -75,10 +89,10 @@ export default function Dashboard() {
                     </h1>
 
                     <p>
-                        Upload your resume,
-                        analyze it against a
-                        job description, and get
-                        actionable AI feedback.
+                        Upload your resume, compare it
+                        against a real job description,
+                        and get an ATS score plus
+                        personalized AI feedback.
                     </p>
 
                 </div>
@@ -147,4 +161,4 @@ export default function Dashboard() {
 
         </div>
     );
-}
+}   

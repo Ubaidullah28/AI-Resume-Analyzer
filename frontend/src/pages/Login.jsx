@@ -11,6 +11,9 @@ import {
     useAuth
 } from "../context/AuthContext";
 
+import GoogleLoginButton
+    from "../components/GoogleLoginButton";
+
 
 export default function Login() {
 
@@ -40,25 +43,53 @@ export default function Login() {
         e.preventDefault();
 
         setError("");
-        setLoading(true);
+
+
+        if (!email.trim()) {
+
+            setError(
+                "Please enter your email."
+            );
+
+            return;
+        }
+
+
+        if (!password) {
+
+            setError(
+                "Please enter your password."
+            );
+
+            return;
+        }
 
 
         try {
+
+            setLoading(true);
+
 
             await login(
                 email,
                 password
             );
 
+
             navigate(
                 "/dashboard"
             );
 
+
         } catch (err) {
 
+            console.error(err);
+
             setError(
-                err.message
+                err.message ||
+                "Login failed. Please check your credentials."
             );
+
 
         } finally {
 
@@ -69,84 +100,115 @@ export default function Login() {
 
 
     return (
+
         <div className="auth-page">
 
             <div className="auth-card">
 
-                <div className="logo">
+                <div className="auth-logo">
                     ResumeAI
                 </div>
+
 
                 <h1>
                     Welcome back
                 </h1>
 
-                <p className="subtitle">
+
+                <p className="auth-subtitle">
                     Analyze your resume
-                    with AI
+                    with AI.
                 </p>
 
 
                 {error && (
-                    <div className="error">
+
+                    <div className="auth-error">
                         {error}
                     </div>
+
                 )}
 
 
                 <form
-                    onSubmit={
-                        handleSubmit
-                    }
+                    className="auth-form"
+                    onSubmit={handleSubmit}
                 >
 
-                    <label>
-                        Email
-                    </label>
+                    <div className="form-group">
 
-                    <input
-                        type="email"
-                        placeholder="you@example.com"
-                        value={email}
-                        onChange={(e) =>
-                            setEmail(
-                                e.target.value
-                            )
-                        }
-                        required
-                    />
+                        <label htmlFor="email">
+                            Email
+                        </label>
+
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="you@example.com"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(
+                                    e.target.value
+                                )
+                            }
+                            autoComplete="email"
+                            required
+                        />
+
+                    </div>
 
 
-                    <label>
-                        Password
-                    </label>
+                    <div className="form-group">
 
-                    <input
-                        type="password"
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) =>
-                            setPassword(
-                                e.target.value
-                            )
-                        }
-                        required
-                    />
+                        <label htmlFor="password">
+                            Password
+                        </label>
+
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(
+                                    e.target.value
+                                )
+                            }
+                            autoComplete="current-password"
+                            required
+                        />
+
+                    </div>
 
 
                     <button
                         type="submit"
+                        className="auth-btn"
                         disabled={loading}
                     >
+
                         {loading
                             ? "Signing in..."
-                            : "Sign in"}
+                            : "Sign in"
+                        }
+
                     </button>
 
                 </form>
 
 
-                <p className="auth-footer">
+                <div className="auth-divider">
+                    <span>OR</span>
+                </div>
+
+
+                <GoogleLoginButton />
+
+
+                {/* ONLY ONE footer */}
+
+                <div className="auth-footer">
+
                     Don't have an account?
 
                     {" "}
@@ -154,7 +216,8 @@ export default function Login() {
                     <Link to="/register">
                         Create account
                     </Link>
-                </p>
+
+                </div>
 
             </div>
 
