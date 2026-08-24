@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const mainNav = [
@@ -15,6 +16,8 @@ export default function SeoPageLayout({
   children,
   breadcrumbs = []
 }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="site-shell">
       <header className="site-header">
@@ -23,7 +26,24 @@ export default function SeoPageLayout({
             ResumeAI
           </Link>
 
-          <nav className="site-nav" aria-label="Main navigation">
+          <button
+            className="mobile-menu-toggle"
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="seo-navigation"
+            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+            onClick={() => setMenuOpen((isOpen) => !isOpen)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          <nav
+            className={`site-nav${menuOpen ? " is-open" : ""}`}
+            id="seo-navigation"
+            aria-label="Main navigation"
+          >
             {mainNav.map((item) => (
               <Link key={item.to} to={item.to}>
                 {item.label}
@@ -31,7 +51,7 @@ export default function SeoPageLayout({
             ))}
           </nav>
 
-          <div className="header-actions">
+          <div className={`header-actions${menuOpen ? " is-open" : ""}`}>
             <Link className="btn btn-light" to="/login">
               Login
             </Link>

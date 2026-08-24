@@ -67,7 +67,10 @@ export default function GoogleLoginButton() {
                 {
                     theme: "outline",
                     size: "large",
-                    width: 360,
+                    width: Math.min(
+                        360,
+                        buttonRef.current.clientWidth || 360
+                    ),
                     text: "continue_with",
                     shape: "rectangular"
                 }
