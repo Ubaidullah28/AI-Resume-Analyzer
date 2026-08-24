@@ -35,6 +35,9 @@ export default function SeoPageLayout({
             <Link className="btn btn-light" to="/login">
               Login
             </Link>
+            <Link className="btn btn-secondary" to="/register">
+              Sign Up
+            </Link>
             <Link className="btn btn-primary" to="/dashboard">
               Try Analyzer
             </Link>
