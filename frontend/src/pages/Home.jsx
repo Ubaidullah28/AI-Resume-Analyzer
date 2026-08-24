@@ -60,9 +60,14 @@ export default function Home() {
                 {item.title}
               </Link>
             ))}
+
+            <span className="mobile-auth-links">
+              <Link to="/login">Login</Link>
+              <Link to="/register">Sign Up</Link>
+            </span>
           </nav>
 
-          <div className={`header-actions${menuOpen ? " is-open" : ""}`}>
+          <div className="header-actions">
             <Link className="btn btn-light" to="/login">
               Login
             </Link>

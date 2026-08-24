@@ -26,6 +26,12 @@ export default function SeoPageLayout({
             ResumeAI
           </Link>
 
+          <div className="header-analysis">
+            <Link className="btn btn-primary" to="/dashboard">
+              Try Analyzer
+            </Link>
+          </div>
+
           <button
             className="mobile-menu-toggle"
             type="button"
@@ -49,17 +55,19 @@ export default function SeoPageLayout({
                 {item.label}
               </Link>
             ))}
+
+            <span className="mobile-auth-links">
+              <Link to="/login">Login</Link>
+              <Link to="/register">Sign Up</Link>
+            </span>
           </nav>
 
-          <div className={`header-actions${menuOpen ? " is-open" : ""}`}>
+          <div className="header-actions">
             <Link className="btn btn-light" to="/login">
               Login
             </Link>
             <Link className="btn btn-secondary" to="/register">
               Sign Up
-            </Link>
-            <Link className="btn btn-primary" to="/dashboard">
-              Try Analyzer
             </Link>
           </div>
         </div>

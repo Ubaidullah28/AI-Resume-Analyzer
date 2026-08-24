@@ -1298,6 +1298,10 @@ button:disabled {
     flex-wrap: wrap;
 }
 
+.mobile-auth-links {
+    display: none;
+}
+
 .site-nav a,
 .site-footer a,
 .text-link,
@@ -1756,8 +1760,7 @@ button:disabled {
         background: currentColor;
     }
 
-    .site-nav,
-    .header-actions {
+    .site-nav {
         display: none;
         width: 100%;
         flex-direction: column;
@@ -1774,9 +1777,19 @@ button:disabled {
         white-space: nowrap;
     }
 
-    .site-nav.is-open,
-    .header-actions.is-open {
+    .site-nav.is-open {
         display: flex;
+    }
+
+    .header-actions {
+        display: none;
+    }
+
+    .mobile-auth-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
     }
 
     .site-nav a,
