@@ -29,6 +29,19 @@ import Register
 import Dashboard
     from "./pages/Dashboard";
 
+import Home
+    from "./pages/Home";
+
+import Blog
+    from "./pages/Blog";
+
+import SeoArticle
+    from "./pages/SeoArticle";
+
+import {
+    seoPages
+} from "./data/seoContent";
+
 
 function App() {
 
@@ -46,6 +59,13 @@ function App() {
                     ====================== */}
 
                     <Route
+                        path="/"
+                        element={
+                            <Home />
+                        }
+                    />
+
+                    <Route
                         path="/login"
                         element={
                             <Login />
@@ -59,6 +79,22 @@ function App() {
                         }
                     />
 
+                    <Route
+                        path="/blog"
+                        element={
+                            <Blog />
+                        }
+                    />
+
+                    {seoPages.map((page) => (
+                        <Route
+                            key={page.path}
+                            path={page.path}
+                            element={
+                                <SeoArticle />
+                            }
+                        />
+                    ))}
 
                     {/* =====================
                         PROTECTED ROUTES
@@ -86,8 +122,6 @@ function App() {
                         />
 
 
-
-
                         <Route
                             path="/results"
                             element={
@@ -111,7 +145,7 @@ function App() {
                     <Route
                         path="*"
                         element={
-                            <Login />
+                            <Home />
                         }
                     />
 
