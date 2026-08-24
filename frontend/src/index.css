@@ -1298,10 +1298,6 @@ button:disabled {
     flex-wrap: wrap;
 }
 
-.mobile-auth-links {
-    display: none;
-}
-
 .site-nav a,
 .site-footer a,
 .text-link,
@@ -1782,14 +1778,12 @@ button:disabled {
     }
 
     .header-actions {
-        display: none;
-    }
-
-    .mobile-auth-links {
         display: flex;
-        flex-direction: column;
-        gap: 10px;
         width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding-top: 10px;
     }
 
     .site-nav a,

@@ -56,10 +56,6 @@ export default function SeoPageLayout({
               </Link>
             ))}
 
-            <span className="mobile-auth-links">
-              <Link to="/login">Login</Link>
-              <Link to="/register">Sign Up</Link>
-            </span>
           </nav>
 
           <div className="header-actions">
