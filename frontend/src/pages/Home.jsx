@@ -31,6 +31,12 @@ export default function Home() {
             ResumeAI
           </Link>
 
+          <div className="header-analysis">
+            <Link className="btn btn-primary" to="/dashboard">
+              Start Analysis
+            </Link>
+          </div>
+
           <button
             className="mobile-menu-toggle"
             type="button"
@@ -62,9 +68,6 @@ export default function Home() {
             </Link>
             <Link className="btn btn-secondary" to="/register">
               Sign Up
-            </Link>
-            <Link className="btn btn-primary" to="/dashboard">
-              Start Analysis
             </Link>
           </div>
         </div>

@@ -128,9 +128,9 @@ export default function Register() {
 
                 {/* Logo */}
 
-                <div className="auth-logo">
+                <Link className="auth-logo" to="/">
                     ResumeAI
-                </div>
+                </Link>
 
 
                 {/* Heading */}

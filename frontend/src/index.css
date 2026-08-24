@@ -1320,6 +1320,10 @@ button:disabled {
     gap: 12px;
 }
 
+.header-analysis {
+    display: flex;
+}
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -1719,9 +1723,15 @@ button:disabled {
 @media (max-width: 640px) {
     .header-inner {
         position: relative;
+        flex-direction: row;
+        align-items: center;
         flex-wrap: wrap;
         gap: 0;
         padding: 16px 0;
+    }
+
+    .header-analysis {
+        margin-left: auto;
     }
 
     .mobile-menu-toggle {
@@ -1732,7 +1742,7 @@ button:disabled {
         align-items: center;
         justify-content: center;
         gap: 5px;
-        margin-left: auto;
+        margin-left: 10px;
         border: 1px solid rgba(148, 163, 184, 0.35);
         border-radius: 10px;
         background: #fff;
@@ -1754,6 +1764,14 @@ button:disabled {
         align-items: stretch;
         gap: 10px;
         padding-top: 16px;
+    }
+
+    .header-analysis .btn {
+        width: auto;
+        padding: 9px 12px;
+        border-radius: 9px;
+        font-size: 0.78rem;
+        white-space: nowrap;
     }
 
     .site-nav.is-open,
@@ -1842,6 +1860,10 @@ button:disabled {
 
 .auth-logo {
     color: #5146e5;
+
+    display: block;
+
+    text-decoration: none;
 
     font-size: 22px;
 

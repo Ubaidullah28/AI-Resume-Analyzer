@@ -105,9 +105,9 @@ export default function Login() {
 
             <div className="auth-card">
 
-                <div className="auth-logo">
+                <Link className="auth-logo" to="/">
                     ResumeAI
-                </div>
+                </Link>
 
 
                 <h1>
