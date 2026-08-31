@@ -14,7 +14,7 @@
 ## 🌐 Live Application
 
 **Frontend:**  
-https://muhammad-ubaidullah-portfolio.vercel.app/
+https://ai-resume-analyzer-taupe-one.vercel.app/
 
 **Developer Portfolio:**  
 https://muhammad-ubaidullah-portfolio.vercel.app/
